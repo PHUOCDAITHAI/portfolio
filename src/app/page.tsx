@@ -629,7 +629,7 @@ export default function Home() {
               href="tel:0834379775"
               whileHover={{ y: -2 }}
             >
-              0834 377 975
+              0834379775
             </motion.a>
             <motion.a
               className="rounded-full border border-slate-500 px-4 py-2 transition hover:border-cyan-300"
