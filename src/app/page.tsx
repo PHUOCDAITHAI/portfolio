@@ -74,9 +74,17 @@ const projects = [
     title: "Barbershop Management Platform",
     description:
       "A modern barbershop booking and management system with customer scheduling, service management, and admin dashboard.",
-    tags: ["Next.js", "NestJS", "PostgreSQL", "Tailwind CSS", "Framer Motion"],
+    tags: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Tailwind CSS", "Framer Motion"],
     demoUrl: "https://phuocdaibarbershop.vercel.app",
-    githubUrl: "https://github.com/PHUOCDAITHAI",
+    githubUrl: "https://github.com/PHUOCDAITHAI/barbershop-fe",
+  },
+  {
+    title: "Movie App",
+    description:
+      "A modern movie web application featuring movie listings, detailed movie information, advanced filtering, search functionality, trailer viewing, and a personalized My List feature.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    demoUrl: "https://phuocdai-flix.vercel.app",
+    githubUrl: "https://github.com/PHUOCDAITHAI/movie-app-frontend",
   },
 ];
 
