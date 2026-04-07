@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="40" x2="1100" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A" />
+      <stop offset="1" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="accent" x1="120" y1="120" x2="780" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE" />
+      <stop offset="1" stop-color="#A78BFA" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="76" y="76" width="1048" height="478" rx="28" fill="#0B1220" stroke="#334155" stroke-width="2" />
+  <circle cx="976" cy="236" r="94" fill="url(#accent)" fill-opacity="0.8" />
+  <text x="130" y="238" fill="#22D3EE" font-family="Arial, sans-serif" font-size="28" font-weight="700">UI / FRONTEND DEVELOPER</text>
+  <text x="130" y="316" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="68" font-weight="700">Thai Phuoc Dai</text>
+  <text x="130" y="372" fill="#94A3B8" font-family="Arial, sans-serif" font-size="30">React " Next.js " Tailwind CSS " Framer Motion</text>
+  <text x="130" y="462" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="24">Portfolio Website</text>
+</svg>
