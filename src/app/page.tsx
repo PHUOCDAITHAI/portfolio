@@ -1,12 +1,25 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 const sectionFadeIn = {
   hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+  },
+};
+
+const itemFadeIn = {
+  hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -61,9 +74,32 @@ const projects = [
     title: "Barbershop Management Platform",
     description:
       "A modern barbershop booking and management system with customer scheduling, service management, and admin dashboard.",
-    tags: ["Next.js", "NestJS", "PostgreSQL", "Tailwind CSS"],
+    tags: ["Next.js", "NestJS", "PostgreSQL", "Tailwind CSS", "Framer Motion"],
     demoUrl: "https://phuocdaibarbershop.vercel.app",
     githubUrl: "https://github.com/PHUOCDAITHAI",
+  },
+];
+
+const strengths = [
+  {
+    title: "Product Mindset",
+    detail:
+      "Prioritize user flow, clarity, and measurable impact instead of only implementing UI.",
+  },
+  {
+    title: "Performance First",
+    detail:
+      "Apply lazy loading, code splitting, and rendering optimizations to improve Core Web Vitals.",
+  },
+  {
+    title: "Design-to-Code Accuracy",
+    detail:
+      "Convert Figma designs to semantic, responsive, and cross-browser interfaces with pixel-level consistency.",
+  },
+  {
+    title: "Team Collaboration",
+    detail:
+      "Work effectively with designers, backend engineers, and QA in Agile environments.",
   },
 ];
 
@@ -75,6 +111,7 @@ const copy = {
   experience: "Experience",
   education: "Education",
   projects: "Featured Projects",
+  value: "Why Hire Me",
   contact: "Contact",
   send: "Send Message",
   name: "Your name",
@@ -91,6 +128,7 @@ const copy = {
 
 const navItems = [
   { label: "About", href: "#about" },
+  { label: "Value", href: "#value" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
@@ -242,17 +280,23 @@ export default function Home() {
         </nav>
       </header>
 
-      {resultMessage && (
-        <div
-          className={`fixed right-5 top-16 z-50 rounded-xl border px-4 py-3 text-sm shadow-lg backdrop-blur ${
-            toastType === "success"
-              ? "border-emerald-400/40 bg-emerald-500/15 text-emerald-200"
-              : "border-rose-400/40 bg-rose-500/15 text-rose-200"
-          }`}
-        >
-          {resultMessage}
-        </div>
-      )}
+      <AnimatePresence>
+        {resultMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: -14, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.96 }}
+            transition={{ duration: 0.2 }}
+            className={`fixed right-5 top-16 z-50 rounded-xl border px-4 py-3 text-sm shadow-lg backdrop-blur ${
+              toastType === "success"
+                ? "border-emerald-400/40 bg-emerald-500/15 text-emerald-200"
+                : "border-rose-400/40 bg-rose-500/15 text-rose-200"
+            }`}
+          >
+            {resultMessage}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10 md:px-10">
         <motion.section
@@ -299,18 +343,25 @@ export default function Home() {
               />
             </motion.div>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          >
             {stats.map((stat) => (
               <motion.article
                 key={stat.label}
-                whileHover={{ y: -4 }}
-                className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/5" : "border-slate-300 bg-white/70"}`}
+                variants={itemFadeIn}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className={`animated-border rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/5" : "border-slate-300 bg-white/70"}`}
               >
                 <p className="text-xl font-semibold text-cyan-500">{stat.value}</p>
                 <p className={`mt-1 text-sm ${isDark ? "text-slate-300" : "text-slate-700"}`}>{stat.label}</p>
               </motion.article>
             ))}
-          </div>
+          </motion.div>
         </motion.section>
 
         <motion.section
@@ -341,12 +392,19 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-6 grid gap-4 md:grid-cols-2"
+          >
             {filteredProjects.map((project) => (
               <motion.article
                 key={project.title}
-                whileHover={{ y: -6 }}
-                className={`rounded-2xl border p-5 ${isDark ? "border-slate-700 bg-slate-800/70" : "border-slate-300 bg-slate-50"}`}
+                variants={itemFadeIn}
+                whileHover={{ y: -8, scale: 1.01 }}
+                className={`animated-border rounded-2xl border p-5 ${isDark ? "border-slate-700 bg-slate-800/70" : "border-slate-300 bg-slate-50"}`}
               >
                 <h3 className="text-lg font-semibold">{project.title}</h3>
                 <p className={`mt-2 text-sm ${isDark ? "text-slate-300" : "text-slate-700"}`}>{project.description}</p>
@@ -358,26 +416,30 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="mt-4 flex gap-2">
-                  <a
+                  <motion.a
                     href={project.demoUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full bg-cyan-300 px-3 py-1.5 text-xs font-medium text-slate-950"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     Live Demo
-                  </a>
-                  <a
+                  </motion.a>
+                  <motion.a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full border border-slate-500 px-3 py-1.5 text-xs"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     GitHub
-                  </a>
+                  </motion.a>
                 </div>
               </motion.article>
             ))}
-          </div>
+          </motion.div>
         </motion.section>
 
         <motion.section
@@ -390,17 +452,24 @@ export default function Home() {
           className={`rounded-3xl border p-7 md:p-8 ${isDark ? "border-white/10 bg-slate-900/70" : "border-slate-300 bg-white/80"}`}
         >
           <h2 className="text-2xl font-semibold">{ui.technicalSkills}</h2>
-          <div className="mt-5 flex flex-wrap gap-2.5">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-5 flex flex-wrap gap-2.5"
+          >
             {skills.map((skill) => (
               <motion.span
                 key={skill}
-                whileHover={{ scale: 1.05 }}
-                className={`rounded-xl border px-3.5 py-1.5 text-sm ${isDark ? "border-slate-700 bg-slate-800/80 text-slate-200" : "border-slate-300 bg-slate-100 text-slate-800"}`}
+                variants={itemFadeIn}
+                whileHover={{ scale: 1.08, y: -2 }}
+                className={`animated-border rounded-xl border px-3.5 py-1.5 text-sm ${isDark ? "border-slate-700 bg-slate-800/80 text-slate-200" : "border-slate-300 bg-slate-100 text-slate-800"}`}
               >
                 {skill}
               </motion.span>
             ))}
-          </div>
+          </motion.div>
         </motion.section>
 
         <motion.section
@@ -413,9 +482,19 @@ export default function Home() {
           className={`rounded-3xl border p-7 md:p-8 ${isDark ? "border-white/10 bg-slate-900/70" : "border-slate-300 bg-white/80"}`}
         >
           <h2 className="text-2xl font-semibold">{ui.experience}</h2>
-          <div className={`mt-6 space-y-8 border-l pl-6 ${isDark ? "border-slate-700/70" : "border-slate-300"}`}>
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className={`mt-6 space-y-8 border-l pl-6 ${isDark ? "border-slate-700/70" : "border-slate-300"}`}
+          >
             {experiences.map((experience) => (
-              <article key={experience.title} className="relative space-y-3">
+              <motion.article
+                key={experience.title}
+                variants={itemFadeIn}
+                className="relative space-y-3"
+              >
                 <span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full bg-cyan-300" />
                 <div>
                   <h3 className="text-xl font-semibold">{experience.title}</h3>
@@ -428,9 +507,9 @@ export default function Home() {
                     <li key={bullet}>{bullet}</li>
                   ))}
                 </ul>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </motion.section>
 
         <motion.section
@@ -450,6 +529,33 @@ export default function Home() {
         </motion.section>
 
         <motion.section
+          id="value"
+          variants={sectionFadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.45 }}
+          className={`rounded-3xl border p-7 md:p-8 ${isDark ? "border-white/10 bg-slate-900/70" : "border-slate-300 bg-white/80"}`}
+        >
+          <h2 className="text-2xl font-semibold">{ui.value}</h2>
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            {strengths.map((item) => (
+              <article
+                key={item.title}
+                className={`animated-border rounded-2xl border p-4 ${
+                  isDark ? "border-slate-700 bg-slate-800/70" : "border-slate-300 bg-slate-50"
+                }`}
+              >
+                <p className="text-base font-semibold">{item.title}</p>
+                <p className={`mt-2 text-sm ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                  {item.detail}
+                </p>
+              </article>
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.section
           id="contact"
           variants={sectionFadeIn}
           initial="hidden"
@@ -460,20 +566,34 @@ export default function Home() {
         >
           <h2 className="text-2xl font-semibold">{ui.contact}</h2>
           <form className="mt-5 grid gap-3 md:max-w-xl" onSubmit={sendEmail}>
+            <label className="sr-only" htmlFor="contact-name">
+              Name
+            </label>
             <input
+              id="contact-name"
               name="from_name"
               required
               placeholder={ui.name}
+              autoComplete="name"
               className={`rounded-xl border px-4 py-2.5 outline-none ${isDark ? "border-slate-700 bg-slate-800 text-slate-100" : "border-slate-300 bg-white text-slate-900"}`}
             />
+            <label className="sr-only" htmlFor="contact-email">
+              Email
+            </label>
             <input
+              id="contact-email"
               name="from_email"
               type="email"
               required
               placeholder={ui.email}
+              autoComplete="email"
               className={`rounded-xl border px-4 py-2.5 outline-none ${isDark ? "border-slate-700 bg-slate-800 text-slate-100" : "border-slate-300 bg-white text-slate-900"}`}
             />
+            <label className="sr-only" htmlFor="contact-message">
+              Message
+            </label>
             <textarea
+              id="contact-message"
               name="message"
               rows={5}
               required
@@ -489,28 +609,38 @@ export default function Home() {
             </button>
           </form>
           <div className="mt-5 flex flex-wrap gap-3 text-sm">
-            <a className="rounded-full border border-slate-500 px-4 py-2 transition hover:border-cyan-300" href="mailto:daithai050900@gmail.com">
+            <motion.a
+              className="rounded-full border border-slate-500 px-4 py-2 transition hover:border-cyan-300"
+              href="mailto:daithai050900@gmail.com"
+              whileHover={{ y: -2 }}
+            >
               daithai050900@gmail.com
-            </a>
-            <a className="rounded-full border border-slate-500 px-4 py-2 transition hover:border-cyan-300" href="tel:0834379775">
+            </motion.a>
+            <motion.a
+              className="rounded-full border border-slate-500 px-4 py-2 transition hover:border-cyan-300"
+              href="tel:0834379775"
+              whileHover={{ y: -2 }}
+            >
               0834 377 975
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               className="rounded-full border border-slate-500 px-4 py-2 transition hover:border-cyan-300"
               href="https://github.com/PHUOCDAITHAI"
               target="_blank"
               rel="noreferrer"
+              whileHover={{ y: -2 }}
             >
               GitHub
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               className="rounded-full border border-slate-500 px-4 py-2 transition hover:border-cyan-300"
               href="https://www.linkedin.com/in/dai-thai-108012239/"
               target="_blank"
               rel="noreferrer"
+              whileHover={{ y: -2 }}
             >
               LinkedIn
-            </a>
+            </motion.a>
           </div>
         </motion.section>
 

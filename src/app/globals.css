@@ -28,3 +28,82 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+.animated-border {
+  position: relative;
+  isolation: isolate;
+  --border-angle: 0deg;
+}
+
+.animated-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(34, 211, 238, 0.35) 70deg,
+    transparent 140deg,
+    rgba(167, 139, 250, 0.35) 220deg,
+    transparent 300deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.42;
+  transition: opacity 0.25s ease;
+}
+
+.animated-border > * {
+  position: relative;
+  z-index: 1;
+}
+
+.animated-border:hover::before {
+  opacity: 0.62;
+}
+
+.animated-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 0deg,
+    transparent 322deg,
+    rgba(34, 211, 238, 0.2) 336deg,
+    rgba(34, 211, 238, 1) 348deg,
+    rgba(167, 139, 250, 0.85) 356deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.6));
+  pointer-events: none;
+  animation: border-trace-smooth 2.8s linear infinite;
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes border-trace-smooth {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-border::after {
+    animation: none;
+  }
+}
