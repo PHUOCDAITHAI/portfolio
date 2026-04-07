@@ -104,7 +104,7 @@ const strengths = [
 ];
 
 const copy = {
-  role: "UI / Frontend Developer",
+  role: "Frontend Developer",
   contactMe: "Contact Me",
   hireMe: "Hire Me",
   technicalSkills: "Technical Skills",
