@@ -40,6 +40,7 @@ const skills = [
   "JavaScript",
   "Vue.js",
   "Angular",
+  "NestJS",
   "Jest",
   "React Testing Library",
   "Git",
