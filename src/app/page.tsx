@@ -131,7 +131,7 @@ const copy = {
   footerBy: "by Thai Phuoc Dai",
   footerRight: "© 2026 All Rights Reserved",
   about:
-    "Frontend Developer with 3+ years of experience building high-performance, responsive, and pixel-perfect web interfaces with strong focus on UX, animation, and design systems.",
+    "Frontend Developer with 4+ years of experience building high-performance, responsive, and pixel-perfect web interfaces with strong focus on UX, animation, and design systems.",
 };
 
 const navItems = [
