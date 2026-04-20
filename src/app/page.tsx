@@ -26,7 +26,7 @@ const itemFadeIn = {
 type Theme = "dark" | "light";
 
 const stats = [
-  { value: "3+ Years", label: "Frontend Experience" },
+  { value: "4+ Years", label: "Frontend Experience" },
   { value: "40-50%", label: "Code Duplication Reduced" },
   { value: "20-25%", label: "Engagement Improved" }
 ];
